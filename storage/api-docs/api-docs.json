@@ -1,0 +1,146 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "TEST FLIP API",
+        "description": "This service for test flip.",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/disbursments": {
+            "get": {
+                "tags": [
+                    "disbursment"
+                ],
+                "summary": "Fetch all disbursment",
+                "description": "Returns all disbursment",
+                "operationId": "listDisbursments",
+                "responses": {
+                    "200": {
+                        "description": "List of disbursments",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "allOf": [
+                                                    {
+                                                        "$ref": "#/components/schemas/Disbursment"
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/admin/disbursments/{disbursment}": {
+            "get": {
+                "tags": [
+                    "disbursment"
+                ],
+                "summary": "Get disbursment by ID",
+                "description": "Returns a single disbursment data",
+                "operationId": "getDisbursmentID",
+                "parameters": [
+                    {
+                        "name": "disbursment",
+                        "in": "path",
+                        "description": "ID of disbursment to return",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "allOf": [
+                                                    {
+                                                        "$ref": "#/components/schemas/Disbursment"
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Disbursment not found"
+                    }
+                }
+            }
+        },
+        "/api/disbursments/create": {
+            "post": {
+                "tags": [
+                    "disbursment"
+                ],
+                "summary": "Create new",
+                "description": "Add new disbursment data",
+                "operationId": "addDisbursment",
+                "requestBody": {
+                    "description": "",
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "amount": {
+                                        "type": "integer"
+                                    },
+                                    "bank_code": {
+                                        "type": "string"
+                                    },
+                                    "account_number": {
+                                        "type": "integer"
+                                    },
+                                    "remark": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Missing field parameter"
+                    },
+                    "201": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Disbursment": {
+                "title": "Disbursment"
+            }
+        }
+    },
+    "security": [
+        []
+    ]
+}
