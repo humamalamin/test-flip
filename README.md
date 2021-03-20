@@ -30,6 +30,7 @@ cd test-flip
 run composer install
 cp .env.example to .env
 config file .env
+change FLIP_URL and FLIP_TOKEN in file .env
 run php artisan key:generate
 run php artisan migrate --seed
 run php artisan serve
